@@ -37,9 +37,9 @@
 
     <!-- Nav -->
     <nav class="flex items-center gap-10 text-sm font-medium">
-      <a href="#" class="hover:underline">Inicio</a>
+      <a href="index.php" class="hover:underline">Inicio</a>
       <a href="#" class="bg-gray-300 text-black px-4 py-1 rounded-full">Novedades</a>
-      <a href="#" class="hover:underline">Nosotros</a>
+      <a href="nosotros.php" class="hover:underline">Nosotros</a>
     </nav>
 
     <!-- Profile Icon -->

@@ -12,11 +12,15 @@
           colors: {
             beige: '#F2E0C9',
             naranja: '#D4A762',
+          },
+          fontFamily: {
+            'dancing': ['Dancing Script', 'cursive'],
           }
         }
       }
     }
   </script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 font-sans text-black">
 
@@ -37,9 +41,9 @@
 
     <!-- Nav -->
     <nav class="flex items-center gap-10 text-sm font-medium">
-      <a href="#" class="bg-gray-300 text-black px-4 py-1 rounded-full">Inicio</a>
-      <a href="#" class="hover:underline">Novedades</a>
-      <a href="#" class="hover:underline">Nosotros</a>
+      <a href="index.php" class="hover:underline">Inicio</a>
+      <a href="novedades.php" class="hover:underline">Novedades</a>
+      <a href="#" class="bg-gray-300 text-black px-4 py-1 rounded-full">Nosotros</a>
     </nav>
 
     <!-- Profile Icon -->
@@ -85,25 +89,41 @@
     </div>
   </main>
 
-  <!-- Features -->
-  <section class="bg-white py-8 flex flex-col md:flex-row justify-around items-center text-center text-naranja">
-    <div>
-      <svg class="mx-auto w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h12v2H3v-2zm0 4h18v2H3v-2zm0 4h12v2H3v-2z"/>
-      </svg>
-      <p class="font-bold">Envíos <br> nacionales</p>
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-dancing text-naranja text-center mb-10">Nuestra Historia</h2>
+      <div class="bg-beige rounded-lg shadow-lg p-8 text-center">
+        <p class="leading-relaxed">
+          En Orange Boutique, creemos que la moda es una forma de expresión personal. Nacimos con la misión de ofrecer ropa actual, cómoda y con estilo para mujeres auténticas que buscan destacar en cada temporada. Nuestra pasión por el diseño y los detalles se refleja en cada prenda que seleccionamos.
+        </p>
+        <p class="leading-relaxed mt-4">
+          Desde nuestros inicios, nos hemos comprometido a brindar una experiencia única de compra, combinando calidad, atención personalizada y lo último en tendencias. Ya sea que busques un look casual, elegante o moderno, en Orange Boutique encontrarás algo pensado para ti.
+        </p>
+        <p class="leading-relaxed mt-4 font-semibold text-naranja">
+          Gracias por ser parte de nuestra comunidad. ¡Tu estilo nos inspira!
+        </p>
+      </div>
     </div>
-    <div>
-      <svg class="mx-auto w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M21 8a2 2 0 00-2-2H5a2 2 0 00-2 2v10h18V8zM5 6a4 4 0 00-4 4v10a2 2 0 002 2h14a2 2 0 002-2V10a4 4 0 00-4-4H5z"/>
-      </svg>
-      <p class="font-bold">Pagos <br> seguros</p>
-    </div>
-    <div>
-      <svg class="mx-auto w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm-1 2h2c1.11 0 2 .89 2 2v2H9v-2c0-1.11.89-2 2-2z"/>
-      </svg>
-      <p class="font-bold">Atención <br> personalizada</p>
+  </section>
+
+  <!-- Seccion de preguntas frecuentes -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-dancing text-naranja text-center mb-10">Preguntas Frecuentes</h2>
+      <div class="bg-beige rounded-lg shadow-lg p-8">
+        <h3 class="text-xl font-semibold mb-4">¿Cómo puedo realizar un pedido?</h3>
+        <p class="leading-relaxed mb-4">
+          Puedes realizar tu pedido a través de nuestra tienda en línea. Simplemente selecciona los productos que deseas y sigue el proceso de compra.
+        </p>
+        <h3 class="text-xl font-semibold mb-4">¿Cuáles son los métodos de pago aceptados?</h3>
+        <p class="leading-relaxed mb-4">
+          Aceptamos tarjetas de crédito, débito y pagos a través de plataformas como PayPal.
+        </p>
+        <h3 class="text-xl font-semibold mb-4">¿Hacen envíos internacionales?</h3>
+        <p class="leading-relaxed mb-4">
+          Actualmente, realizamos envíos dentro del país. Estamos trabajando para ofrecer envíos internacionales en el futuro.
+        </p>
+      </div>
     </div>
   </section>
 
