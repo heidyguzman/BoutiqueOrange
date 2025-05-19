@@ -60,31 +60,51 @@
 
   <!-- Cards -->
   <main class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <div class="bg-white rounded shadow overflow-hidden">
-      <div class="h-48 bg-gradient-to-t from-green-600 to-blue-200 flex items-center justify-center">
-        <div class="w-24 h-24 bg-white rounded-full shadow-md"></div>
-      </div>
-      <div class="bg-cyan-200 text-center p-4 font-semibold text-lg">Estilo</div>
+  <div class="bg-white rounded shadow overflow-hidden">
+    <div class="h-96 relative overflow-hidden">
+       
+      <img 
+        src="image/8.jpg" 
+        alt="Imagen de producto" 
+        class="w-full h-full object-cover"
+      />
     </div>
+    <div class="bg-cyan-200 text-center p-4 font-semibold text-lg">Estilo</div>
+  </div>
 
-    <div class="bg-white rounded shadow overflow-hidden">
-      <div class="h-48 bg-gradient-to-t from-green-600 to-blue-200 flex items-center justify-center">
-        <div class="w-24 h-24 bg-white rounded-full shadow-md"></div>
-      </div>
-      <div class="bg-pink-200 text-center p-4 font-semibold text-lg">Tendencias</div>
+  <div class="bg-white rounded shadow overflow-hidden">
+    <div class="h-96 relative overflow-hidden">
+       
+      <img 
+        src="image/5.jpg" 
+        alt="Imagen de producto" 
+        class="w-full h-full object-cover"
+      />
     </div>
+    <div class="bg-pink-200 text-center p-4 font-semibold text-lg">Tendencias</div>
+  </div>
 
-    <div class="bg-white rounded shadow overflow-hidden">
-      <div class="h-48 bg-gradient-to-t from-green-600 to-blue-200 flex items-center justify-center">
-        <div class="w-24 h-24 bg-white rounded-full shadow-md"></div>
-      </div>
+  <div class="bg-white rounded shadow overflow-hidden">
+    <div class="h-96 relative overflow-hidden">
+       
+      <img 
+        src="image/6.jpg" 
+        alt="Imagen de producto" 
+        class="w-full h-full object-cover"
+      />
+    </div>
       <div class="bg-yellow-200 text-center p-4 font-semibold text-lg">Originalidad</div>
     </div>
 
-    <div class="bg-white rounded shadow overflow-hidden">
-      <div class="h-48 bg-gradient-to-t from-green-600 to-blue-200 flex items-center justify-center">
-        <div class="w-24 h-24 bg-white rounded-full shadow-md"></div>
-      </div>
+     <div class="bg-white rounded shadow overflow-hidden">
+    <div class="h-96 relative overflow-hidden">
+       
+      <img 
+        src="image/7.jpg" 
+        alt="Imagen de producto" 
+        class="w-full h-full object-cover"
+      />
+    </div>
       <div class="bg-red-200 text-center p-4 font-semibold text-lg">Moda</div>
     </div>
   </main>
