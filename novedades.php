@@ -37,8 +37,8 @@
 
     <!-- Nav -->
     <nav class="flex items-center gap-10 text-sm font-medium">
-      <a href="#" class="bg-gray-300 text-black px-4 py-1 rounded-full">Inicio</a>
-      <a href="novedades.php" class="hover:underline">Novedades</a>
+      <a href="index.php" class="hover:underline">Inicio</a>
+      <a href="#" class="bg-gray-300 text-black px-4 py-1 rounded-full">Novedades</a>
       <a href="nosotros.php" class="hover:underline">Nosotros</a>
     </nav>
 
@@ -54,74 +54,69 @@
     </div>
   </header>
 
-  <!-- Cards -->
-<main class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-  <div class="bg-white rounded shadow overflow-hidden">
-    <div class="h-[30rem] bg-gradient-to-t relative overflow-hidden">
-      <img 
-        src="image/1.jpg" 
-        alt="Imagen de producto" 
-        class="absolute inset-0 w-full h-full object-cover"/>
-    </div>
-    <div class="bg-cyan-200 text-center p-4 font-semibold text-lg">Estilo</div>
+  <!-- Título -->
+  <div class="text-center bg-gradient-to-b from-[#DFF4FF] to-white py-10">
+    <h2 class="text-4xl font-semibold">Novedades</h2>
+    <p class="text-2xl mt-2 text-gray-700">orange</p>
   </div>
 
-    <div class="bg-white rounded shadow overflow-hidden">
-    <div class="h-[30rem] bg-gradient-to-t relative overflow-hidden">
-      <img 
-        src="image/2.jpg" 
-        alt="Imagen de producto" 
-        class="absolute inset-0 w-full h-full object-cover"/>
+  <!-- Filtros y Crear Publicación -->
+  <div class="max-w-6xl mx-auto px-4 mt-8">
+    <div class="flex items-center gap-4 mb-6">
+      <button class="flex items-center gap-2 text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Filtros
+      </button>
+
+      <div class="flex-grow">
+        <div class="bg-gray-200 rounded-md p-4 flex items-center gap-4">
+          <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="text" placeholder="¿En qué estás pensando?" class="flex-grow bg-transparent outline-none">
+          <button class="bg-black text-white text-sm px-4 py-1 rounded-md">Foto/Video</button>
+        </div>
+      </div>
     </div>
-    <div class="bg-pink-200 text-center p-4 font-semibold text-lg">Tendencias</div>
+
+    <!-- Publicaciones -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card -->
+      <div class="border rounded-md p-4 shadow-md">
+        <p class="text-sm text-gray-500">Usuario</p>
+        <p class="text-xs text-gray-400 mb-2">Fecha</p>
+        <img src="https://via.placeholder.com/300x200" class="w-full h-48 object-cover rounded-md mb-2">
+        <div class="flex justify-start gap-4 text-2xl text-gray-600">
+          <span>♡</span>
+          <span>🗨️</span>
+        </div>
+      </div>
+
+      <!-- Card repetida (puedes duplicar este bloque) -->
+      <div class="border rounded-md p-4 shadow-md">
+        <p class="text-sm text-gray-500">Usuario</p>
+        <p class="text-xs text-gray-400 mb-2">Fecha</p>
+        <img src="https://via.placeholder.com/300x200" class="w-full h-48 object-cover rounded-md mb-2">
+        <div class="flex justify-start gap-4 text-2xl text-gray-600">
+          <span>♡</span>
+          <span>🗨️</span>
+        </div>
+      </div>
+
+      <!-- Otro card -->
+      <div class="border rounded-md p-4 shadow-md">
+        <p class="text-sm text-gray-500">Usuario</p>
+        <p class="text-xs text-gray-400 mb-2">Fecha</p>
+        <img src="https://via.placeholder.com/300x200" class="w-full h-48 object-cover rounded-md mb-2">
+        <div class="flex justify-start gap-4 text-2xl text-gray-600">
+          <span>♡</span>
+          <span>🗨️</span>
+        </div>
+      </div>
+    </div>
   </div>
-
-
-    <div class="bg-white rounded shadow overflow-hidden">
-    <div class="h-[30rem] bg-gradient-to-t relative overflow-hidden">
-      <img 
-        src="image/3.jpg" 
-        alt="Imagen de producto" 
-        class="absolute inset-0 w-full h-full object-cover"/>
-    </div>
-    <div class="bg-yellow-200 text-center p-4 font-semibold text-lg">Originalidad</div>
-  </div>
-
-
-
-   <div class="bg-white rounded shadow overflow-hidden">
-    <div class="h-[30rem] bg-gradient-to-t relative overflow-hidden">
-      <img 
-        src="image/4.jpg" 
-        alt="Imagen de producto" 
-        class="absolute inset-0 w-full h-full object-cover"/>
-    </div>
-    <div class="bg-red-200 text-center p-4 font-semibold text-lg">Moda</div>
-  </div>
-  </main>
-
-  <!-- Features -->
-  <section class="bg-white py-8 flex flex-col md:flex-row justify-around items-center text-center text-naranja">
-    <div>
-      <svg class="mx-auto w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h12v2H3v-2zm0 4h18v2H3v-2zm0 4h12v2H3v-2z"/>
-      </svg>
-      <p class="font-bold">Envíos <br> nacionales</p>
-    </div>
-    <div>
-      <svg class="mx-auto w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M21 8a2 2 0 00-2-2H5a2 2 0 00-2 2v10h18V8zM5 6a4 4 0 00-4 4v10a2 2 0 002 2h14a2 2 0 002-2V10a4 4 0 00-4-4H5z"/>
-      </svg>
-      <p class="font-bold">Pagos <br> seguros</p>
-    </div>
-    <div>
-      <svg class="mx-auto w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm-1 2h2c1.11 0 2 .89 2 2v2H9v-2c0-1.11.89-2 2-2z"/>
-      </svg>
-      <p class="font-bold">Atención <br> personalizada</p>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="bg-black text-white px-6 py-10 text-sm">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
