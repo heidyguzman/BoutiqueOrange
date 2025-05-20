@@ -30,17 +30,16 @@ Antes de empezar, asegúrate de tener lo siguiente instalado en tu equipo:
 1. 🔽 **Clona o descarga este repositorio**:
 
 ```bash
-git clone https://github.com/usuario/proyecto-php.git
+git clone https://github.com/heidyguzman/BoutiqueOrange.git
 ```
 📁 Copia la carpeta del proyecto dentro de la carpeta htdocs de XAMPP:
 
 makefile
 Copiar
 Editar
-C:\xampp\htdocs\proyecto-php
-🗄️ (Opcional) Si el proyecto incluye una base de datos (.sql):
+```bash C:\xampp\htdocs\proyecto-php```
 
-Abre http://localhost/phpmyadmin en tu navegador.
+Abre ```bash http://localhost/BoutiqueOrange/``` en tu navegador.
 
 Crea una nueva base de datos.
 
