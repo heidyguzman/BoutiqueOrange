@@ -34,9 +34,6 @@ git clone https://github.com/heidyguzman/BoutiqueOrange.git
 ```
 📁 Copia la carpeta del proyecto dentro de la carpeta htdocs de XAMPP:
 
-makefile
-Copiar
-Editar
 ```bash C:\xampp\htdocs\proyecto-php```
 
 Abre ```bash http://localhost/BoutiqueOrange/``` en tu navegador.
@@ -54,16 +51,12 @@ Abre el Panel de Control de XAMPP y asegúrate de que estén activos:
 
 Ingresa en tu navegador a:
 
-arduino
-Copiar
-Editar
+
+
 http://localhost/proyecto-php
 ¡Y eso es todo! La página debería estar funcionando localmente 🎉
 
 📁 Estructura Básica del Proyecto
-pgsql
-Copiar
-Editar
 proyecto-php/
 │
 ├── index.php
