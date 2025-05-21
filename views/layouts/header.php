@@ -31,11 +31,13 @@
     </div>
     <div class="text-3xl italic font-semibold text-naranja">Orange</div>
     <nav class="flex items-center gap-10 text-sm font-medium">
-      <a href="#" class="bg-gray-300 text-black px-4 py-1 rounded-full">Inicio</a>
-      <a href="#" class="hover:underline">Novedades</a>
-      <a href="#" class="hover:underline">Nosotros</a>
+      <a href="/BOUTIQUEORANGE/index.php?view=home" class="bg-gray-300 text-black px-4 py-1 rounded-full">Inicio</a>
+      <a href="/BOUTIQUEORANGE/index.php?view=novedades" class="hover:underline">Novedades</a>
+      <a href="/BOUTIQUEORANGE/index.php?view=nosotros" class="hover:underline">Nosotros</a>
+
     </nav>
     <div>
+      <a href="/BOUTIQUEORANGE/index.php?view=login">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2"
         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -43,5 +45,6 @@
         <path stroke-linecap="round" stroke-linejoin="round"
           d="M15 10a3 3 0 11-6 0 3 3 0 016 0z"></path>
       </svg>
+      </a>
     </div>
   </header>
