@@ -6,10 +6,11 @@
   <title>Inicio de sesión</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-200 to-sky-100">
+<body class="min-h-screen flex items-center justify-center bg-cover bg-center" 
+      style="background-image: url('../image/fondo.jpg');">
 
   <!-- Caja de inicio de sesión -->
-  <div class="relative bg-[#E4D1B9] border border-black rounded-md p-8 w-80 shadow-md">
+  <div class="relative bg-[#E4D1B9] border border-black rounded-md p-10 w-80 shadow-md">
     
     <!-- Icono de casa en la esquina superior derecha -->
     <div class="absolute top-2 right-2">
