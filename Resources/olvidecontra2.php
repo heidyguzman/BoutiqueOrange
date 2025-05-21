@@ -6,10 +6,9 @@
   <title>Cambiar Contraseña</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-cover bg-center" 
-      style="background-image: url('../image/fondo.jpg');">
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-300 via-purple-300 to-green-300">
 
-  <div class="bg-[#ead8bd] w-[300px] p-10 rounded-md shadow-md border-2 border-black relative">
+  <div class="bg-[#ead8bd] w-[300px] p-6 rounded-md shadow-md border-2 border-black relative">
     <!-- Icono de casa -->
     <div class="absolute top-2 right-2">
       <a href="/" title="Inicio">
