@@ -5,7 +5,7 @@ class AdminDashboardController {
         session_start();
         
         // Verificar si el usuario está logueado y es admin
-        if (!isset($_SESSION['id']) || $_SESSION['tipo_usuario'] != 1) {
+        if (!isset($_SESSION['usuario']) || $_SESSION['tipo'] != 1) {
             header('Location: /BOUTIQUEORANGE/index.php?view=login');
             exit();
         }
@@ -17,7 +17,7 @@ class AdminDashboardController {
     // Método para verificar permisos de admin
     private function verificarAdmin() {
         session_start();
-        if (!isset($_SESSION['id']) || $_SESSION['tipo_usuario'] != 1) {
+        if (!isset($_SESSION['usuario']) || $_SESSION['tipo'] != 1) {
             header('Location: /BOUTIQUEORANGE/index.php?view=login');
             exit();
         }
@@ -39,3 +39,4 @@ class AdminDashboardController {
         require_once __DIR__ . '/../../views/admin/reportes.php';
     }
 }
+?>

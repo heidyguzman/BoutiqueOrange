@@ -19,5 +19,17 @@ class Contacto {
             return false;
         }
     }
+
+    public function buscarcorreo($correo) {
+        // Evita inyección SQL usando sentencias preparadas
+        $this->conexion->sentencia = "SELECT * FROM user WHERE email = '$correo'";
+        $resultado = $this->conexion->obtener_sentencia();
+
+        if ($resultado && $resultado->num_rows > 0) {
+            return $resultado->fetch_assoc(); // Retorna el usuario encontrado
+        } else {
+            return false;
+        }
+    }
 }
 ?>

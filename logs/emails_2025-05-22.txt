@@ -1,0 +1,21 @@
+
+        PARA: rafaelalexandro6949@gmail.com
+        ASUNTO: Recuperación de contraseña - Boutique Orange
+        
+        Hola,
+        
+        Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para crear una nueva contraseña:
+        
+        http://localhost/BOUTIQUEORANGE/index.php?view=resetPassword&token=997598edeec5fe756efcd3cf7dacf40f46a97e5f967786236aef752b05471805
+        
+        Este enlace expirará en 1 hora.
+        Si no solicitaste este cambio, puedes ignorar este correo.
+        
+        Saludos,
+        Equipo Boutique Orange
+        
+        ---
+        Fecha: 2025-05-22 21:55:40
+        Token: 997598edeec5fe756efcd3cf7dacf40f46a97e5f967786236aef752b05471805
+        
+
