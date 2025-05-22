@@ -19,17 +19,20 @@ class Contacto {
             return false;
         }
     }
-
-    public function buscarcorreo($correo) {
-        // Evita inyección SQL usando sentencias preparadas
+    public function obtenerPorCorreo($correo) {
         $this->conexion->sentencia = "SELECT * FROM user WHERE email = '$correo'";
         $resultado = $this->conexion->obtener_sentencia();
-
         if ($resultado && $resultado->num_rows > 0) {
-            return $resultado->fetch_assoc(); // Retorna el usuario encontrado
+            return $resultado->fetch_assoc(); // Retorna el usuario
         } else {
-            return false;
+            return null; // No se encontró el usuario
         }
+    }
+
+    public function crear($nombre, $usuario, $correo, $password) {
+        $this->conexion->sentencia = "INSERT INTO user (name, username, email, passwd) VALUES ('$nombre', '$usuario', '$correo', '$password')";
+        $resultado = $this->conexion->ejecutar_sentencia();
+        
     }
 }
 ?>

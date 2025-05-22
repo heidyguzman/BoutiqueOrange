@@ -21,56 +21,41 @@
       </a>
     </div>
 
-    <!-- Título -->
-    <h2 class="text-2xl font-semibold mb-4 text-black">Registro</h2>
+  <form action="/BOUTIQUEORANGE/index.php?view=registro" method="POST">
+  <!-- Campo nombre -->
+  <label class="block text-sm font-semibold text-black mb-1">NOMBRE COMPLETO</label>
+  <input type="text" name="nombre" placeholder="Juan Carlos Perez Ruiz" class="w-full border border-black px-3 py-2 text-sm mb-3" required />
+  <!-- Campo usuario -->
+  <label class="block text-sm font-semibold text-black mb-1">USUARIO</label>
+  <input type="text" name="usuario" placeholder="JuanR1" class="w-full border border-black px-3 py-2 text-sm mb-3" required />
+  <!-- Campo correo -->
+  <label class="block text-sm font-semibold text-black mb-1">CORREO</label>
+  <input type="email" name="correo" placeholder="ejemplo@gmail.com" class="w-full border border-black px-3 py-2 text-sm mb-3" required />
 
-    <!-- Campo nombre -->
-    <label class="block text-sm font-semibold text-black mb-1">NOMBRE COMPLETO</label>
-    <input type="text" placeholder="Juan Carlos Perez Ruiz" class="w-full border border-black px-3 py-2 text-sm mb-3" />
+  <!-- Contraseña -->
+  <label class="block text-sm font-semibold text-black mb-1">CONTRASEÑA</label>
+  <input type="password" name="passwd" class="w-full border border-black px-3 py-2 text-sm mb-3" required />
 
-    <!-- Campo correo -->
-    <label class="block text-sm font-semibold text-black mb-1">CORREO</label>
-    <input type="email" placeholder="ejemplo@gmail.com" class="w-full border border-black px-3 py-2 text-sm mb-3" />
+  <!-- Confirmar contraseña -->
+  <label class="block text-sm font-semibold text-black mb-1">CONFIRMAR CONTRASEÑA</label>
+  <input type="password" name="confirmar_passwd" class="w-full border border-black px-3 py-2 text-sm mb-3" required />
 
-    <!-- Contraseña -->
-    <label class="block text-sm font-semibold text-black mb-1">CONTRASEÑA</label>
-    <div class="relative mb-3">
-      <input type="password" class="w-full border border-black px-3 py-2 text-sm pr-10" />
-      <button type="button" class="absolute right-2 top-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
-      </button>
-    </div>
+  <!-- Checkbox términos -->
+  <div class="flex items-center mb-3 text-sm">
+    <input id="terminos" type="checkbox" name="terminos" class="mr-2 accent-black" required />
+    <label for="terminos" class="text-black">TÉRMINOS Y CONDICIONES</label>
+  </div>
 
-    <!-- Confirmar contraseña -->
-    <label class="block text-sm font-semibold text-black mb-1">CONFIRMAR CONTRASEÑA</label>
-    <div class="relative mb-3">
-      <input type="password" class="w-full border border-black px-3 py-2 text-sm pr-10" />
-      <button type="button" class="absolute right-2 top-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
-      </button>
-    </div>
+  <!-- Enlace de login -->
+  <div class="text-xs mb-4">
+    <a href="/BOUTIQUEORANGE/index.php?view=login" class="text-black underline">INICIAR SESIÓN</a>
+  </div>
 
-    <!-- Checkbox términos -->
-    <div class="flex items-center mb-3 text-sm">
-      <input id="terminos" type="checkbox" class="mr-2 accent-black" />
-      <label for="terminos" class="text-black">TÉRMINOS Y CONDICIONES</label>
-    </div>
-
-    <!-- Enlace de login -->
-    <div class="text-xs mb-4">
-      <a href="/BOUTIQUEORANGE/index.php?view=login" class="text-black underline">INICIAR SESIÓN</a>
-    </div>
-
-    <!-- Botón crear cuenta -->
-    <button class="w-full bg-black text-white py-2 text-sm font-semibold hover:bg-gray-800 transition">
-      CREAR CUENTA
-    </button>
+  <!-- Botón crear cuenta -->
+  <button type="submit" class="w-full bg-black text-white py-2 text-sm font-semibold hover:bg-gray-800 transition">
+    CREAR CUENTA
+  </button>
+</form>
   </div>
 
 </body>

@@ -10,9 +10,9 @@
 		private $base='foroboutique';
 		public $sentencia;
 		private $rows =array();
-		private $conexion;	
+		protected $conexion;	
 
-		private function abrir_conexion(){
+		protected function abrir_conexion(){
 			$this->conexion = new mysqli($this->host,$this->usuario,$this->password,$this->base);
 		}
 
@@ -35,6 +35,13 @@
 		{
 			return $this->conexion->insert_id;
 		}
+
+    	public function __construct() {
+        $this->conexion = new mysqli($this->host, $this->usuario, $this->password, $this->base);
+        if ($this->conexion->connect_error) {
+            die("Error de conexión a la base de datos: " . $this->conexion->connect_error);
+        }
+    }
 
 	}
 
