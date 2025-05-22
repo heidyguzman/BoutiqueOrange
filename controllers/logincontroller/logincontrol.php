@@ -22,6 +22,7 @@ class LoginController {
 
             if ($usuarioData) {
                 $_SESSION['usuario'] = $usuarioData['username'];
+                $_SESSION['user_id'] = $usuarioData['id'];
                 $_SESSION['tipo'] = $usuarioData['tipo'];
 
                 if ($usuarioData['tipo'] == 1) {

@@ -1,8 +1,11 @@
 <?php
 session_start();
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
 
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo']) || $_SESSION['tipo'] != 1) {
-    header('Location: ../../views/viewslogin/login.php');
+    header('Location: /BOUTIQUEORANGE/index.php');
     exit;
 }
 ?>
@@ -25,7 +28,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo']) || $_SESSION['tipo
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-black font-medium">Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
-                    <a href="/BOUTIQUEORANGE/index.php?action=logout" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
+                    <a href="/BOUTIQUEORANGE/controllers/LogoutController.php" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
                         Cerrar Sesión
                     </a>
                 </div>
@@ -39,44 +42,69 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo']) || $_SESSION['tipo
             <div class="p-4">
                 <ul class="space-y-2">
                     <li>
-                        <a href="/BOUTIQUEORANGE/index.php?view=admin_dashboard" class="flex items-center p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                        <a href="?view=dashboard" class="flex items-center p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
                             </svg>
                             Dashboard
                         </a>
                     </li>
-                    <li>
-                        <a href="/BOUTIQUEORANGE/index.php?view=admin_usuarios" class="flex items-center p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    <li class="relative">
+                        <button id="postMenuBtn" type="button" class="flex items-center w-full p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition focus:outline-none">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            Posts
+                            <svg class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <ul id="postMenuDropdown" class="hidden absolute left-0 mt-2 w-full bg-white border rounded shadow z-10">
+                            <li>
+                                <a href="?view=create_post" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Crear Post</a>
+                            </li>
+                            <li>
+                                <a href="?view=list_posts" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Listar Posts</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="relative">
+                        <button id="catMenuBtn" type="button" class="flex items-center w-full p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition focus:outline-none">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6m16 0v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6m16 0H4"/>
+                            </svg>
+                            Categorías
+                            <svg class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <ul id="catMenuDropdown" class="hidden absolute left-0 mt-2 w-full bg-white border rounded shadow z-10">
+                            <li>
+                                <a href="?view=create_categoria" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Crear Categoría</a>
+                            </li>
+                            <li>
+                                <a href="?view=list_categorias" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Listar Categorías</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="relative">
+                        <button id="userMenuBtn" type="button" class="flex items-center w-full p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition focus:outline-none">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                             Usuarios
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/BOUTIQUEORANGE/index.php?view=admin_productos" class="flex items-center p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            <svg class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
-                            Productos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/BOUTIQUEORANGE/index.php?view=admin_pedidos" class="flex items-center p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                            </svg>
-                            Pedidos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/BOUTIQUEORANGE/index.php?view=admin_reportes" class="flex items-center p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
-                            Reportes
-                        </a>
+                        </button>
+                        <ul id="userMenuDropdown" class="hidden absolute left-0 mt-2 w-full bg-white border rounded shadow z-10">
+                            <li>
+                                <a href="?view=create_user" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Crear Usuario</a>
+                            </li>
+                            <li>
+                                <a href="?view=list_users" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Listar Usuarios</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -84,96 +112,89 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo']) || $_SESSION['tipo
 
         <!-- Main Content -->
         <main class="flex-1 p-8">
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Principal</h2>
-                <p class="text-gray-600">Resumen general del sistema</p>
-            </div>
-
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
-                    <div class="flex items-center">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-gray-700">Total Usuarios</h3>
-                            <p class="text-3xl font-bold text-blue-600">1,234</p>
-                        </div>
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                            </svg>
-                        </div>
+            <?php
+            $view = $_GET['view'] ?? 'dashboard';
+            if ($view === 'create_post') {
+                include 'create_post_form.php';
+            } else if ($view === 'list_posts') {
+                include 'list_posts.php';
+            } else if ($view === 'create_categoria') {
+                include 'create_categoria_form.php';
+            } else if ($view === 'list_categorias') {
+                include 'list_categorias.php';
+            } else if ($view === 'create_user') {
+                include 'create_user_form.php';
+            } else if ($view === 'list_users') {
+                include 'list_users.php';
+            } else {
+                require_once dirname(__DIR__, 2) . '/models/Contacto.php';
+                $contacto = new Contacto();
+                $totalPosts = $contacto->getTotalPosts();
+                $postsToday = $contacto->getPostsToday();
+                $totalVisits = $contacto->getTotalVisits();
+            ?>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow p-8 border-l-4 border-blue-500 flex flex-col items-center">
+                    <div class="mb-2">
+                        <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
                     </div>
+                    <span class="font-semibold text-gray-700">Total Publicaciones</span>
+                    <span class="text-3xl font-bold text-blue-600"><?php echo $totalPosts; ?></span>
                 </div>
-
-                <div class="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
-                    <div class="flex items-center">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-gray-700">Productos</h3>
-                            <p class="text-3xl font-bold text-green-600">567</p>
-                        </div>
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                            </svg>
-                        </div>
+                <div class="bg-white rounded-lg shadow p-8 border-l-4 border-green-500 flex flex-col items-center">
+                    <div class="mb-2">
+                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17l4 4 4-4m0-5V3"/>
+                        </svg>
                     </div>
+                    <span class="font-semibold text-gray-700">Publicaciones Hoy</span>
+                    <span class="text-3xl font-bold text-green-600"><?php echo $postsToday; ?></span>
                 </div>
-
-                <div class="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-500">
-                    <div class="flex items-center">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-gray-700">Pedidos Hoy</h3>
-                            <p class="text-3xl font-bold text-yellow-600">89</p>
-                        </div>
-                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                            </svg>
-                        </div>
+                <div class="bg-white rounded-lg shadow p-8 border-l-4 border-purple-500 flex flex-col items-center">
+                    <div class="mb-2">
+                        <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"/>
+                        </svg>
                     </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500">
-                    <div class="flex items-center">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-gray-700">Ventas Mes</h3>
-                            <p class="text-3xl font-bold text-purple-600">$12,345</p>
-                        </div>
-                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                            </svg>
-                        </div>
-                    </div>
+                    <span class="font-semibold text-gray-700">Total Visitas</span>
+                    <span class="text-3xl font-bold text-purple-600"><?php echo $totalVisits; ?></span>
                 </div>
             </div>
-
-            <!-- Recent Activity -->
-            <div class="bg-white rounded-lg shadow">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-800">Actividad Reciente</h3>
-                </div>
-                <div class="p-6">
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                            <p class="text-gray-700">Nuevo usuario registrado: juan@email.com</p>
-                            <span class="text-sm text-gray-500">hace 5 min</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            <p class="text-gray-700">Pedido #1234 completado</p>
-                            <span class="text-sm text-gray-500">hace 15 min</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                            <p class="text-gray-700">Producto "Vestido Azul" actualizado</p>
-                            <span class="text-sm text-gray-500">hace 1 hora</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php } ?>
         </main>
     </div>
+    <script src="/BOUTIQUEORANGE/public/js/admin_menu.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btn = document.getElementById('catMenuBtn');
+        const dropdown = document.getElementById('catMenuDropdown');
+        if (btn && dropdown) {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                dropdown.classList.toggle('hidden');
+            });
+            document.addEventListener('click', function (e) {
+                if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+        }
+        const userBtn = document.getElementById('userMenuBtn');
+        const userDropdown = document.getElementById('userMenuDropdown');
+        if (userBtn && userDropdown) {
+            userBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                userDropdown.classList.toggle('hidden');
+            });
+            document.addEventListener('click', function (e) {
+                if (!userBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.classList.add('hidden');
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html>
