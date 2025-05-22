@@ -72,17 +72,21 @@
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl font-dancing text-naranja text-center mb-10">Preguntas Frecuentes</h2>
       <div class="bg-beige rounded-lg shadow-lg p-8">
-        <h3 class="text-xl font-semibold mb-4">¿Cómo puedo realizar un pedido?</h3>
+        <h3 class="text-xl font-semibold mb-4">¿Cómo puedo crear una cuenta?</h3>
         <p class="leading-relaxed mb-4">
-          Puedes realizar tu pedido a través de nuestra tienda en línea. Simplemente selecciona los productos que deseas y sigue el proceso de compra.
+        Para crear una cuenta, haz clic en el botón "crear cuenta" en la parte inferior del login. Completa el formulario con tus datos y confirma tu registro.
         </p>
-        <h3 class="text-xl font-semibold mb-4">¿Cuáles son los métodos de pago aceptados?</h3>
+        <h3 class="text-xl font-semibold mb-4">¿Cómo puedo realizar un post?</h3>
         <p class="leading-relaxed mb-4">
-          Aceptamos tarjetas de crédito, débito y pagos a través de plataformas como PayPal.
+          Después de iniciar sesión, accede a tu panel de usuario y haz clic en "Crear post". Llena los campos requeridos como título, contenido y categoría, y luego haz clic en "Publicar".
         </p>
-        <h3 class="text-xl font-semibold mb-4">¿Hacen envíos internacionales?</h3>
+        <h3 class="text-xl font-semibold mb-4">¿Puedo editar o eliminar un post que ya publiqué?</h3>
         <p class="leading-relaxed mb-4">
-          Actualmente, realizamos envíos dentro del país. Estamos trabajando para ofrecer envíos internacionales en el futuro.
+        Sí. Ve a tu perfil, selecciona el post que deseas modificar y elige la opción "Editar" o "Eliminar".
+        </p>
+        <h3 class="text-xl font-semibold mb-4">¿Necesito una cuenta para ver los posts?</h3>
+        <p class="leading-relaxed mb-4">
+        No necesitas una cuenta para ver los posts, pero sí para comentar o crear contenido.
         </p>
       </div>
     </div>

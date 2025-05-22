@@ -21,21 +21,30 @@
 <body class="bg-gray-100 font-sans text-black">
   <header class="bg-beige text-black p-4 flex items-center justify-between shadow">
     <div class="flex items-center gap-4">
-      <button>
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 5.65a7.5 7.5 0 010 10.6z"></path>
-        </svg>
-      </button>
+    
     </div>
     <div class="text-3xl italic font-semibold text-naranja">Orange</div>
-    <nav class="flex items-center gap-10 text-sm font-medium">
-      <a href="/BOUTIQUEORANGE/index.php?view=home" class="bg-gray-300 text-black px-4 py-1 rounded-full">Inicio</a>
-      <a href="/BOUTIQUEORANGE/index.php?view=novedades" class="hover:underline">Novedades</a>
-      <a href="/BOUTIQUEORANGE/index.php?view=nosotros" class="hover:underline">Nosotros</a>
+    <?php
+$activePage = $_GET['view'] ?? 'home';
+?>
 
-    </nav>
+<nav class="flex items-center gap-10 text-sm font-medium">
+  <a href="/BOUTIQUEORANGE/index.php?view=home"
+    class="<?= $activePage === 'home' ? 'bg-gray-300 text-black px-4 py-1 rounded-full' : 'hover:underline' ?>">
+    Inicio
+  </a>
+
+  <a href="/BOUTIQUEORANGE/index.php?view=novedades"
+    class="<?= $activePage === 'novedades' ? 'bg-gray-300 text-black px-4 py-1 rounded-full' : 'hover:underline' ?>">
+    Novedades
+  </a>
+
+  <a href="/BOUTIQUEORANGE/index.php?view=nosotros"
+    class="<?= $activePage === 'nosotros' ? 'bg-gray-300 text-black px-4 py-1 rounded-full' : 'hover:underline' ?>">
+    Nosotros
+  </a>
+</nav>
+
     <div>
       <a href="/BOUTIQUEORANGE/index.php?view=login">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2"
@@ -47,4 +56,5 @@
       </svg>
       </a>
     </div>
+    
   </header>
