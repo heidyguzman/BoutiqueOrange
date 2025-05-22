@@ -30,7 +30,11 @@ switch ($view) {
         break;
     case 'login':
         $controller = new LoginController();
-        $controller->index();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->autenticar();
+        } else {
+            $controller->index();
+        }
         break;
     case 'registro':
         $controller = new registrocontroller();
@@ -41,7 +45,6 @@ switch ($view) {
         $controller->index();
         break;
     default:
-        // Vista por defecto o error 404
         echo "Página no encontrada.";
         break;
 }
