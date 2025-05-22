@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex items-center justify-center bg-cover bg-center" 
-      style="background-image: url('../image/fondo.jpg');">
+      style="background-image: url('.../../public/images/fondo.jpg');">
 
   <!-- Caja de inicio de sesión -->
   <div class="relative bg-[#E4D1B9] border border-black rounded-md p-10 w-80 shadow-md">
