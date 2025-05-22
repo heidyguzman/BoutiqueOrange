@@ -24,33 +24,29 @@
     <!-- Título -->
     <h2 class="text-2xl font-semibold mb-6 text-black">Inicio de sesión</h2>
 
-    <!-- Campo correo -->
-    <label class="block text-sm font-semibold text-black mb-1">CORREO</label>
-    <input type="email" placeholder="ejemplo@gmail.com" class="w-full border border-black px-3 py-2 text-sm mb-4" />
+    <form action="/BOUTIQUEORANGE/index.php?view=login" method="POST">
+      <!-- Campo correo -->
+      <label class="block text-sm font-semibold text-black mb-1">CORREO</label>
+      <input type="email" name="email" required placeholder="ejemplo@gmail.com" class="w-full border border-black px-3 py-2 text-sm mb-4" />
 
-    <!-- Campo contraseña -->
-    <label class="block text-sm font-semibold text-black mb-1">CONTRASEÑA</label>
-    <div class="relative mb-4">
-      <input type="password" class="w-full border border-black px-3 py-2 text-sm pr-10" />
-      <button type="button" class="absolute right-2 top-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
+      <!-- Campo contraseña -->
+      <label class="block text-sm font-semibold text-black mb-1">CONTRASEÑA</label>
+      <div class="relative mb-4">
+        <input type="password" name="passwd" required class="w-full border border-black px-3 py-2 text-sm pr-10" />
+      </div>
+
+      <!-- Enlaces -->
+      <div class="text-xs mb-4">
+        <a href="/BOUTIQUEORANGE/index.php?view=recuperarcuenta" class="text-black underline block mt-1"> RECUPERAR CUENTA</a>
+        <a href="/BOUTIQUEORANGE/index.php?view=registro" class="text-black underline block mt-1">CREAR CUENTA</a>
+
+      </div>
+
+      <!-- Botón de inicio -->
+      <button name="login" type="submit" class="w-full bg-black text-white py-2 text-sm font-semibold hover:bg-gray-800 transition">
+        Iniciar sesión
       </button>
-    </div>
-
-    <!-- Enlaces -->
-    <div class="text-xs mb-4">
-      <a href="/BOUTIQUEORANGE/index.php?view=recuperarcuenta" class="text-black underline block mt-1"> RECUPERAR CUENTA</a>
-      <a href="/BOUTIQUEORANGE/index.php?view=registro" class="text-black underline block mt-1">CREAR CUENTA</a>
-
-    </div>
-
-    <!-- Botón de inicio -->
-    <button class="w-full bg-black text-white py-2 text-sm font-semibold hover:bg-gray-800 transition">
-      Iniciar sesión
-    </button>
+    </form>
   </div>
 
 </body>
