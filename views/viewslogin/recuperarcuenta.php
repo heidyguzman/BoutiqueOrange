@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex items-center justify-center bg-cover bg-center" 
-      style="background-image: url('../image/fondo.jpg');">
+      style="background-image: url('.../../public/images/fondo.jpg');">
 
 
   <div class="bg-[#ead8bd] w-[350px] p-10 rounded-md shadow-md border-4 border-black-200 relative">

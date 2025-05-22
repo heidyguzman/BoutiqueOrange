@@ -5,7 +5,7 @@
     <div class="h-96 relative overflow-hidden">
        
       <img 
-        src="image/8.jpg" 
+        src=".../../public/images/5.jpg" 
         alt="Imagen de producto" 
         class="w-full h-full object-cover"
       />
@@ -17,7 +17,7 @@
     <div class="h-96 relative overflow-hidden">
        
       <img 
-        src="image/5.jpg" 
+        src=".../../public/images/6.jpg" 
         alt="Imagen de producto" 
         class="w-full h-full object-cover"
       />
@@ -29,7 +29,7 @@
     <div class="h-96 relative overflow-hidden">
        
       <img 
-        src="image/6.jpg" 
+        src=".../../public/images/7.jpg" 
         alt="Imagen de producto" 
         class="w-full h-full object-cover"
       />
@@ -41,7 +41,7 @@
     <div class="h-96 relative overflow-hidden">
        
       <img 
-        src="image/7.jpg" 
+        src=".../../public/images/8.jpg" 
         alt="Imagen de producto" 
         class="w-full h-full object-cover"
       />

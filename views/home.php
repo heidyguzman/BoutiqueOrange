@@ -2,8 +2,7 @@
   <div class="bg-white rounded shadow overflow-hidden">
     <div class="h-[30rem] bg-gradient-to-t relative overflow-hidden">
       <img 
-        src="image/1.jpg" 
-        alt="Imagen de producto" 
+        src=".../../public/images/1.jpg" 
         class="absolute inset-0 w-full h-full object-cover"/>
     </div>
     <div class="bg-cyan-200 text-center p-4 font-semibold text-lg">Estilo</div>
@@ -12,8 +11,7 @@
     <div class="bg-white rounded shadow overflow-hidden">
     <div class="h-[30rem] bg-gradient-to-t relative overflow-hidden">
       <img 
-        src="image/2.jpg" 
-        alt="Imagen de producto" 
+        src=".../../public/images/2.jpg" 
         class="absolute inset-0 w-full h-full object-cover"/>
     </div>
     <div class="bg-pink-200 text-center p-4 font-semibold text-lg">Tendencias</div>
@@ -23,8 +21,7 @@
     <div class="bg-white rounded shadow overflow-hidden">
     <div class="h-[30rem] bg-gradient-to-t relative overflow-hidden">
       <img 
-        src="image/3.jpg" 
-        alt="Imagen de producto" 
+        src=".../../public/images/3.jpg"
         class="absolute inset-0 w-full h-full object-cover"/>
     </div>
     <div class="bg-yellow-200 text-center p-4 font-semibold text-lg">Originalidad</div>
@@ -35,8 +32,7 @@
    <div class="bg-white rounded shadow overflow-hidden">
     <div class="h-[30rem] bg-gradient-to-t relative overflow-hidden">
       <img 
-        src="image/4.jpg" 
-        alt="Imagen de producto" 
+        src=".../../public/images/4.jpg"
         class="absolute inset-0 w-full h-full object-cover"/>
     </div>
     <div class="bg-red-200 text-center p-4 font-semibold text-lg">Moda</div>
