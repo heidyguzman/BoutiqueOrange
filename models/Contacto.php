@@ -1,17 +1,23 @@
 <?php
-include_once 'Conexion.php';
+require_once 'Conexion.php';
 
-class Contacto extends Conexion {
-    public function login($correo, $password)
-    {
-        // Escapar el correo para evitar inyección SQL
-        $correo_escapado = mysqli_real_escape_string($this->obtener_conexion_temp(), $correo);
-        
-        // Preparar la sentencia SQL
-        $this->sentencia = "SELECT id, name, username, email, passwd, tipo FROM user WHERE email = '$correo_escapado'";
-        
-        // Ejecutar la consulta
-        $result = $this->obtener_sentencia();
+class Contacto {
+    private $conexion;
+
+    public function __construct() {
+        $this->conexion = new Conexion();
+    }
+
+    public function verificarUsuario($usuario, $contrasena) {
+        // Evita inyección SQL usando sentencias preparadas
+        $this->conexion->sentencia = "SELECT * FROM user WHERE username = '$usuario' AND passwd = '$contrasena'";
+        $resultado = $this->conexion->obtener_sentencia();
+
+        if ($resultado && $resultado->num_rows > 0) {
+            return $resultado->fetch_assoc(); // Retorna todo el usuario, incluyendo 'tipo'
+        } else {
+            return false;
+        }
     }
 }
 ?>

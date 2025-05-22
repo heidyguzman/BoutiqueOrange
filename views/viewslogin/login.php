@@ -23,16 +23,15 @@
 
     <!-- Título -->
     <h2 class="text-2xl font-semibold mb-6 text-black">Inicio de sesión</h2>
-
-    <form action="/BOUTIQUEORANGE/index.php?view=login" method="POST">
+    <form method="POST" action="/BOUTIQUEORANGE/index.php?view=login">
       <!-- Campo correo -->
-      <label class="block text-sm font-semibold text-black mb-1">CORREO</label>
-      <input type="email" name="email" required placeholder="ejemplo@gmail.com" class="w-full border border-black px-3 py-2 text-sm mb-4" />
+      <label class="block text-sm font-semibold text-black mb-1">Usuario</label>
+      <input type="text" name="usuario" required placeholder="Usuario" class="w-full border border-black px-3 py-2 text-sm mb-4" />
 
       <!-- Campo contraseña -->
       <label class="block text-sm font-semibold text-black mb-1">CONTRASEÑA</label>
       <div class="relative mb-4">
-        <input type="password" name="passwd" required class="w-full border border-black px-3 py-2 text-sm pr-10" />
+        <input type="password" name="contrasena" required class="w-full border border-black px-3 py-2 text-sm pr-10" />
       </div>
 
       <!-- Enlaces -->

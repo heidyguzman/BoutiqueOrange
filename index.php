@@ -31,7 +31,7 @@ switch ($view) {
     case 'login':
         $controller = new LoginController();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $controller->autenticar();
+            $controller->iniciarSesion();
         } else {
             $controller->index();
         }
@@ -44,6 +44,12 @@ switch ($view) {
         $controller = new recuperarcuentacontroller();
         $controller->index();
         break;
+    case 'adminDashboard':
+        require_once __DIR__ . '/controllers/admin/AdminDashboardController.php';
+        $controller = new AdminDashboardController();
+        $controller->index();
+        break;
+
     default:
         echo "Página no encontrada.";
         break;

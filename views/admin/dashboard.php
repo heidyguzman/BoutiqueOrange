@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['tipo'] !== 'admin') {
-    header('Location: ../../viewslogin/login.php');
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo']) || $_SESSION['tipo'] != 1) {
+    header('Location: ../../views/viewslogin/login.php');
     exit;
 }
 ?>
@@ -24,7 +24,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['tipo'] !== 'admin') {
                     <h1 class="text-2xl font-bold text-black">Panel de Administrador</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-black font-medium">Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre']); ?></span>
+                    <span class="text-black font-medium">Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
                     <a href="/BOUTIQUEORANGE/index.php?action=logout" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
                         Cerrar Sesión
                     </a>
