@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const titleInput = document.getElementById('editPostTitle');
     const bodyInput = document.getElementById('editPostBody');
     const activeInput = document.getElementById('editPostActive');
-    const categoriaInput = document.getElementById('editPostCategoria');
+    const categoriaInput = document.getElementById('editPostCategoria'); // Puede no existir
 
     editBtns.forEach(btn => {
         btn.addEventListener('click', function () {
@@ -17,8 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
             idInput.value = post.id;
             titleInput.value = post.title;
             bodyInput.value = post.body;
-            activeInput.checked = post.active == 1;
-            categoriaInput.value = post.categoria_id || '';
+            activeInput.checked = post.active == 1 || post.active === true || post.active === "1";
+            // Solo si existe el campo de categoría en el modal
+            if (categoriaInput) {
+                categoriaInput.value = post.categoria_id || '';
+            }
             modal.classList.remove('hidden');
         });
     });

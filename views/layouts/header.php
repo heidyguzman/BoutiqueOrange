@@ -42,11 +42,24 @@
         class="<?= $activePage === 'nosotros' ? 'bg-gray-300 text-black px-4 py-1 rounded-full' : 'hover:underline' ?>">
         Nosotros
       </a>
+      <?php if (isset($_SESSION['usuario']) && isset($_SESSION['tipo']) && $_SESSION['tipo'] == 1): ?>
+        <a href="/BOUTIQUEORANGE/views/admin/dashboard.php"
+           class="bg-orange-500 text-white px-4 py-1 rounded-full hover:bg-orange-600 transition ml-2"
+           title="Ir al Panel de Administrador">
+          Dashboard
+        </a>
+      <?php endif; ?>
     </nav>
 
     <div class="flex items-center gap-3">
       <?php if (isset($_SESSION['usuario']) && isset($_SESSION['tipo']) && $_SESSION['tipo'] == 2): ?>
         <span class="font-semibold text-black">Hola, <?= htmlspecialchars($_SESSION['usuario']) ?></span>
+        <a href="/BOUTIQUEORANGE/controllers/LogoutController.php"
+           class="bg-black text-white px-3 py-1 rounded hover:bg-gray-800 transition text-sm">
+          Cerrar sesión
+        </a>
+      <?php elseif (isset($_SESSION['usuario']) && isset($_SESSION['tipo']) && $_SESSION['tipo'] == 1): ?>
+        <span class="font-semibold text-black">Hola, <?= htmlspecialchars($_SESSION['usuario']) ?> (Admin)</span>
         <a href="/BOUTIQUEORANGE/controllers/LogoutController.php"
            class="bg-black text-white px-3 py-1 rounded hover:bg-gray-800 transition text-sm">
           Cerrar sesión
