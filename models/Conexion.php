@@ -43,7 +43,10 @@
         }
     }
 
+    public function getConexion() {
+        return $this->conexion;
+    }
+
 	}
 
 ?>
- 

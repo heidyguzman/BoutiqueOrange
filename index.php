@@ -15,6 +15,16 @@ require_once __DIR__ . '/controllers/logincontroller/recuperarcuentacontroller.p
 // Obtiene la vista solicitada, por defecto 'home'
 $view = isset($_GET['view']) ? $_GET['view'] : 'home';
 
+if (isset($_GET['view'])) {
+    $view = $_GET['view'];
+    // Elimina este bloque:
+    // if ($view === 'novedades') {
+    //     require_once __DIR__ . '/views/novedades.php';
+    //     exit;
+    // }
+    // ...otras rutas...
+}
+
 switch ($view) {
     case 'home':
         $controller = new HomeController();
@@ -29,10 +39,13 @@ switch ($view) {
         $controller->index();
         break;
     case 'login':
+        error_log("Procesando caso login en index.php");
         $controller = new LoginController();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            error_log("POST detectado en index.php, llamando iniciarSesion");
             $controller->iniciarSesion();
         } else {
+            error_log("GET detectado en index.php, mostrando formulario");
             $controller->index();
         }
         break;

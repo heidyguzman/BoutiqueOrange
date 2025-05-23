@@ -1,4 +1,9 @@
- <!-- Título -->
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+<!-- Título -->
   <div class="text-center bg-gradient-to-b from-[#DFF4FF] to-white py-10">
     <h2 class="text-4xl font-semibold">Novedades</h2>
     <p class="text-2xl mt-2 text-gray-700">orange</p>
@@ -15,13 +20,24 @@
       </button>
 
       <div class="flex-grow">
-        <div class="bg-gray-200 rounded-md p-4 flex items-center gap-4">
+        <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 2): ?>
+        <form action="crear_post.php" method="POST" enctype="multipart/form-data" class="bg-gray-200 rounded-md p-4 flex items-center gap-4">
           <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <input type="text" placeholder="¿En qué estás pensando?" class="flex-grow bg-transparent outline-none">
-          <button class="bg-black text-white text-sm px-4 py-1 rounded-md">Foto/Video</button>
+          <input type="text" name="contenido" placeholder="¿En qué estás pensando?" class="flex-grow bg-transparent outline-none" required>
+          <input type="file" name="imagen" accept="image/*" class="text-sm">
+          <button type="submit" class="bg-black text-white text-sm px-4 py-1 rounded-md">Foto/Video</button>
+        </form>
+        <?php else: ?>
+        <div class="bg-gray-200 rounded-md p-4 flex items-center gap-4 opacity-50 pointer-events-none">
+          <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="text" placeholder="¿En qué estás pensando?" class="flex-grow bg-transparent outline-none" disabled>
+          <button class="bg-black text-white text-sm px-4 py-1 rounded-md" disabled>Foto/Video</button>
         </div>
+        <?php endif; ?>
       </div>
     </div>
 

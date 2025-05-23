@@ -28,6 +28,7 @@ class registrocontroller {
             return;
         }
 
+        // Hashear la contraseña
         $hash = password_hash($passwd, PASSWORD_DEFAULT);
         $usuarioModel->crear($nombre, $usuario, $correo, $hash);
 

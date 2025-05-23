@@ -38,5 +38,31 @@ class AdminDashboardController {
         $this->verificarAdmin();
         require_once __DIR__ . '/../../views/admin/reportes.php';
     }
+
+    // Nuevo método para registrar usuarios con contraseña hasheada
+    public function registrarUsuario() {
+        $this->verificarAdmin();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $usuario = $_POST['usuario'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $tipo = $_POST['tipo'] ?? 2; // Por defecto tipo 2 (no admin)
+
+            if ($usuario && $password) {
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+                // Asumiendo conexión PDO en $pdo
+                require __DIR__ . '/../../config/db.php'; // Debe definir $pdo
+
+                $stmt = $pdo->prepare("INSERT INTO usuarios (usuario, password, tipo) VALUES (?, ?, ?)");
+                $stmt->execute([$usuario, $passwordHash, $tipo]);
+
+                header('Location: /BOUTIQUEORANGE/index.php?view=admin_usuarios&success=1');
+                exit();
+            } else {
+                header('Location: /BOUTIQUEORANGE/index.php?view=admin_usuarios&error=1');
+                exit();
+            }
+        }
+    }
 }
 ?>

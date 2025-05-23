@@ -9,15 +9,32 @@ class Contacto extends Conexion {
     }
 
     public function verificarUsuario($usuario, $contrasena) {
-        // Evita inyección SQL usando sentencias preparadas
-        $this->conexion->sentencia = "SELECT * FROM user WHERE username = '$usuario' AND passwd = '$contrasena'";
+        // Buscar usuario por username
+        $this->conexion->sentencia = "SELECT * FROM user WHERE username = '$usuario'";
         $resultado = $this->conexion->obtener_sentencia();
 
         if ($resultado && $resultado->num_rows > 0) {
-            return $resultado->fetch_assoc(); // Retorna todo el usuario, incluyendo 'tipo'
+            $user = $resultado->fetch_assoc();
+            // Debug temporal
+            error_log("Usuario encontrado: " . $user['username']);
+            error_log("Hash en BD: " . $user['passwd']);
+            error_log("Contraseña ingresada: " . $contrasena);
+            
+            // Prueba manual del hash
+            $testHash = password_hash($contrasena, PASSWORD_DEFAULT);
+            error_log("Hash generado para contraseña actual: " . $testHash);
+            
+            // Verificar el hash de la contraseña
+            if (password_verify($contrasena, $user['passwd'])) {
+                error_log("Contraseña verificada correctamente");
+                return $user; // Retorna todo el usuario, incluyendo 'tipo'
+            } else {
+                error_log("Contraseña no coincide");
+            }
         } else {
-            return false;
+            error_log("Usuario no encontrado: " . $usuario);
         }
+        return false;
     }
 
     public function buscarcorreo($correo) {
@@ -41,9 +58,9 @@ class Contacto extends Conexion {
     }
 
     public function crear($nombre, $usuario, $correo, $password) {
+        // La contraseña ya debe venir hasheada desde el controlador
         $this->conexion->sentencia = "INSERT INTO user (name, username, email, passwd) VALUES ('$nombre', '$usuario', '$correo', '$password')";
         $resultado = $this->conexion->ejecutar_sentencia();
-        
     }
 
     public function insertPost($userId, $tittle, $body, $categoria_id, $active, $created_at) {
@@ -125,6 +142,7 @@ class Contacto extends Conexion {
     }
 
     public function insertUser($name, $username, $email, $passwd, $tipo) {
+        // La contraseña ya debe venir hasheada desde el controlador
         $this->conexion->sentencia = "INSERT INTO user (name, username, email, passwd, tipo) VALUES ('$name', '$username', '$email', '$passwd', '$tipo')";
         return $this->conexion->ejecutar_sentencia();
     }
@@ -160,6 +178,14 @@ class Contacto extends Conexion {
         $resultado = $this->conexion->obtener_sentencia();
         $row = $resultado ? $resultado->fetch_assoc() : ['total' => 0];
         return $row['total'];
+    }
+
+    // Función temporal para crear usuario de prueba
+    public function crearUsuarioPrueba() {
+        $hash = password_hash("123456", PASSWORD_DEFAULT);
+        error_log("Creando usuario de prueba con hash: " . $hash);
+        $this->conexion->sentencia = "INSERT INTO user (name, username, email, passwd, tipo) VALUES ('Prueba', 'prueba', 'prueba@test.com', '$hash', 2)";
+        return $this->conexion->ejecutar_sentencia();
     }
 }
 ?>
