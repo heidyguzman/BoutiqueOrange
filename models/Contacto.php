@@ -239,5 +239,34 @@ class Contacto extends Conexion {
         }
         return $this->ejecutar_sentencia();
     }
+
+    // --- RECUPERACIÓN DE CONTRASEÑA ---
+    public function guardarTokenRecuperacion($correo, $token, $expires_at, $created_at) {
+        // Elimina tokens anteriores para ese correo
+        $this->sentencia = "DELETE FROM password_resets WHERE email = '$correo'";
+        $this->ejecutar_sentencia();
+        // Inserta el nuevo token
+        $this->sentencia = "INSERT INTO password_resets (email, token, expires_at, created_at) VALUES ('$correo', '$token', '$expires_at', '$created_at')";
+        return $this->ejecutar_sentencia();
+    }
+
+    public function obtenerResetPorToken($token) {
+        $this->sentencia = "SELECT * FROM password_resets WHERE token = '$token' LIMIT 1";
+        $resultado = $this->obtener_sentencia();
+        if ($resultado && $resultado->num_rows > 0) {
+            return $resultado->fetch_assoc();
+        }
+        return false;
+    }
+
+    public function actualizarPasswordPorCorreo($correo, $hash) {
+        $this->sentencia = "UPDATE user SET passwd = '$hash' WHERE email = '$correo'";
+        return $this->ejecutar_sentencia();
+    }
+
+    public function eliminarToken($token) {
+        $this->sentencia = "DELETE FROM password_resets WHERE token = '$token'";
+        return $this->ejecutar_sentencia();
+    }
 }
 ?>

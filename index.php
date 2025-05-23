@@ -55,7 +55,11 @@ switch ($view) {
         break;
     case 'recuperarcuenta':
         $controller = new recuperarcuentacontroller();
-        $controller->index();
+        if (isset($_GET['action']) && $_GET['action'] === 'update') {
+            $controller->actualizarPassword();
+        } else {
+            $controller->index();
+        }
         break;
     case 'adminDashboard':
         require_once __DIR__ . '/controllers/admin/AdminDashboardController.php';
