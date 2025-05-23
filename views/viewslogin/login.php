@@ -46,12 +46,22 @@
     <form method="POST" action="/BOUTIQUEORANGE/index.php?view=login">
       <!-- Campo correo -->
       <label class="block text-sm font-semibold text-black mb-1">Usuario</label>
-      <input type="text" name="usuario" required placeholder="Usuario" class="w-full border border-black px-3 py-2 text-sm mb-4" />
+      <input type="text" name="usuario" required placeholder="Usuario" class="w-full border border-black px-3 py-2 text-sm mb-4" maxlength="40" />
 
       <!-- Campo contraseña -->
       <label class="block text-sm font-semibold text-black mb-1">CONTRASEÑA</label>
       <div class="relative mb-4">
-        <input type="password" name="contrasena" required class="w-full border border-black px-3 py-2 text-sm pr-10" />
+        <input type="password" name="contrasena" id="login-password" required class="w-full border border-black px-3 py-2 text-sm pr-10" maxlength="15" />
+        <button type="button" id="toggle-login-password" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-black">
+          <svg id="login-eye-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+          <svg id="login-eye-closed" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.956 9.956 0 012.293-3.95M6.634 6.634A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.956 9.956 0 01-4.293 5.95M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+          </svg>
+        </button>
       </div>
 
       <!-- Enlaces -->
@@ -87,7 +97,31 @@
         closeErrorModal();
       }
     });
-  </script>
 
+    // Mostrar/ocultar contraseña
+    document.getElementById('toggle-login-password').addEventListener('click', function() {
+      const input = document.getElementById('login-password');
+      const eyeOpen = document.getElementById('login-eye-open');
+      const eyeClosed = document.getElementById('login-eye-closed');
+      if (input.type === 'password') {
+        input.type = 'text';
+        eyeOpen.classList.add('hidden');
+        eyeClosed.classList.remove('hidden');
+      } else {
+        input.type = 'password';
+        eyeOpen.classList.remove('hidden');
+        eyeClosed.classList.add('hidden');
+      }
+    });
+
+    // Limitar usuario a 40 caracteres
+    document.querySelector('input[name="usuario"]').addEventListener('input', function(e) {
+      this.value = this.value.slice(0, 40);
+    });
+    // Limitar contraseña a 15 caracteres
+    document.getElementById('login-password').addEventListener('input', function(e) {
+      this.value = this.value.slice(0, 15);
+    });
+  </script>
 </body>
 </html>
