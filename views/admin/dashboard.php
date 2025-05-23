@@ -25,6 +25,16 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo']) || $_SESSION['tipo
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
                     <h1 class="text-2xl font-bold text-black">Panel de Administrador</h1>
+                    <!-- Enlace para volver al sitio principal -->
+                    <a href="/BOUTIQUEORANGE/index.php" class="ml-6 text-orange-600 hover:underline font-semibold text-base" title="Ir al sitio principal">
+                        Ir al sitio principal
+                    </a>
+                    <!-- Enlace para volver al dashboard si está fuera -->
+                    <?php if (basename($_SERVER['PHP_SELF']) !== 'dashboard.php'): ?>
+                        <a href="/BOUTIQUEORANGE/views/admin/dashboard.php" class="ml-4 text-blue-600 hover:underline font-semibold text-base" title="Volver al Dashboard">
+                            Volver al Dashboard
+                        </a>
+                    <?php endif; ?>
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-black font-medium">Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
@@ -68,25 +78,16 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo']) || $_SESSION['tipo
                             </li>
                         </ul>
                     </li>
-                    <li class="relative">
-                        <button id="catMenuBtn" type="button" class="flex items-center w-full p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition focus:outline-none">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6m16 0v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6m16 0H4"/>
-                            </svg>
-                            Categorías
-                            <svg class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <ul id="catMenuDropdown" class="hidden absolute left-0 mt-2 w-full bg-white border rounded shadow z-10">
-                            <li>
-                                <a href="?view=create_categoria" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Crear Categoría</a>
-                            </li>
-                            <li>
-                                <a href="?view=list_categorias" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Listar Categorías</a>
-                            </li>
-                        </ul>
+                    <!-- Quita o comenta cualquier enlace, botón o sección relacionada con categorías en el menú del dashboard -->
+                    <!-- Por ejemplo, si tienes algo como esto: -->
+                    <!--
+                    <li>
+                        <a href="?view=list_categorias" ...>Categorías</a>
                     </li>
+                    <li>
+                        <a href="?view=create_categoria" ...>Crear Categoría</a>
+                    </li>
+                    -->
                     <li class="relative">
                         <button id="userMenuBtn" type="button" class="flex items-center w-full p-3 text-gray-700 rounded-lg hover:bg-gray-100 transition focus:outline-none">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -34,19 +34,9 @@ class LoginController {
 
                 error_log("Tipo de usuario: " . $usuarioData['tipo']);
 
-                if ($usuarioData['tipo'] == 1) {
-                    error_log("Redirigiendo a admin dashboard");
-                    header('Location: /BOUTIQUEORANGE/views/admin/dashboard.php');
-                    exit();
-                } else if ($usuarioData['tipo'] == 2) {
-                    error_log("Redirigiendo a novedades");
-                    header('Location: /BOUTIQUEORANGE/index.php?view=novedades');
-                    exit();
-                } else {
-                    error_log("Redirigiendo a home");
-                    header('Location: /BOUTIQUEORANGE/index.php');
-                    exit();
-                }
+                // Redirigir siempre al home tras login exitoso
+                header('Location: /BOUTIQUEORANGE/index.php?view=home');
+                exit();
             } else {
                 error_log("Login fallido para: " . $usuario);
                 $error = "Usuario o contraseña incorrectos.";
