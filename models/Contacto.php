@@ -63,8 +63,8 @@ class Contacto extends Conexion {
         $resultado = $this->ejecutar_sentencia();
     }
 
-    public function insertPost($userId, $tittle, $body, $categoria_id, $active, $created_at) {
-        $this->sentencia = "INSERT INTO posts (userId, title, body, categoriaId, active, created_at) VALUES ('$userId', '$tittle', '$body', '$categoria_id', '$active', '$created_at')";
+    public function insertPost($userId, $tittle, $body, $categoria_id, $active, $created_at, $imagen = null) {
+        $this->sentencia = "INSERT INTO posts (userId, title, body, categoriaId, active, created_at, imagen) VALUES ('$userId', '$tittle', '$body', '$categoria_id', '$active', '$created_at', '$imagen')";
         $resultado = $this->ejecutar_sentencia();
     }
 

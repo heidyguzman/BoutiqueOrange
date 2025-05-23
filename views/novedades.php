@@ -2,6 +2,18 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Agrega esto para cargar los posts:
+require_once __DIR__ . '/../models/Contacto.php';
+$contacto = new Contacto();
+$posts = $contacto->getAllPosts();
+
+// Enriquecer los posts con username y fecha formateada
+foreach ($posts as &$post) {
+    $post['username'] = $contacto->getUsernameById($post['userId']);
+    $post['fecha_formateada'] = date('d/m/Y H:i', strtotime($post['created_at']));
+}
+unset($post);
 ?>
 <!-- Título -->
   <div class="text-center bg-gradient-to-b from-[#DFF4FF] to-white py-10">
@@ -16,7 +28,18 @@ if (session_status() === PHP_SESSION_NONE) {
       <div class="flex-grow">
         <?php if (isset($_SESSION['tipo']) && ($_SESSION['tipo'] == 2 || $_SESSION['tipo'] == 1)): ?>
         <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-          <form action="crear_post.php" method="POST" enctype="multipart/form-data" class="p-6">
+          <?php if (isset($_GET['success'])): ?>
+            <div id="success-message" class="mb-4 text-green-600">¡Post creado exitosamente!</div>
+            <script>
+              setTimeout(function() {
+                var msg = document.getElementById('success-message');
+                if (msg) msg.style.display = 'none';
+              }, 3000); // 3 segundos
+            </script>
+          <?php elseif (isset($_GET['error'])): ?>
+            <div class="mb-4 text-red-600">Error al crear el post. Intenta de nuevo.</div>
+          <?php endif; ?>
+          <form action="controllers/PostController.php" method="POST" enctype="multipart/form-data" class="p-6">
             <!-- Header del formulario -->
             <div class="flex items-center gap-3 mb-4">
               <div class="w-10 h-10 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
@@ -35,10 +58,21 @@ if (session_status() === PHP_SESSION_NONE) {
               </div>
             </div>
             
+            <!-- Campo título (opcional, puedes quitar si no lo quieres) -->
+            <div class="mb-4">
+              <input 
+                type="text"
+                name="tittle"
+                placeholder="Título de tu publicación (opcional)"
+                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-1"
+                maxlength="100"
+              />
+            </div>
+
             <!-- Campo de texto principal -->
             <div class="mb-4">
               <textarea 
-                name="contenido" 
+                name="body" 
                 placeholder="¿En qué estás pensando? Comparte tus ideas, experiencias o novedades..." 
                 class="w-full p-4 border-2 border-gray-200 rounded-lg resize-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all duration-200 outline-none placeholder-gray-400"
                 rows="3"
@@ -54,7 +88,8 @@ if (session_status() === PHP_SESSION_NONE) {
                   <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <span class="text-sm font-medium text-gray-700">Añadir imagen</span>
+                  <span class="text-sm font-medium text-gray-700">Añadir imagen (opcional)</span>
+                  <!-- El campo de imagen es opcional, no lleva atributo required -->
                   <input type="file" name="imagen" accept="image/*" class="hidden">
                 </label>
                 
@@ -73,6 +108,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 Publicar
               </button>
             </div>
+            <input type="hidden" name="from_novedades" value="1" />
           </form>
         </div>
         
@@ -135,7 +171,7 @@ if (session_status() === PHP_SESSION_NONE) {
               <p class="text-gray-700 text-sm leading-relaxed"><?= nl2br(htmlspecialchars($post['body'])) ?></p>
             </div>
 
-            <!-- Imagen placeholder (si fuera necesario) -->
+            <!-- Imagen del post -->
             <?php if (!empty($post['imagen'])): ?>
               <img src="<?= htmlspecialchars($post['imagen']) ?>" class="w-full h-48 object-cover rounded-lg mb-4" alt="Imagen del post">
             <?php endif; ?>
