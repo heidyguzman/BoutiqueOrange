@@ -9,6 +9,26 @@
 <body class="min-h-screen flex items-center justify-center bg-cover bg-center" 
       style="background-image: url('.../../public/images/fondo.jpg');">
 
+  <!-- Modal de error -->
+  <?php if (isset($error)): ?>
+  <div id="errorModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full mx-4">
+      <div class="flex items-center mb-4">
+        <svg class="w-6 h-6 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-gray-900">Error de autenticación</h3>
+      </div>
+      <p class="text-gray-700 mb-4"><?php echo htmlspecialchars($error); ?></p>
+      <div class="flex justify-end">
+        <button onclick="closeErrorModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+  <?php endif; ?>
+
   <!-- Caja de inicio de sesión -->
   <div class="relative bg-[#E4D1B9] border border-black rounded-md p-10 w-80 shadow-md">
     
@@ -47,6 +67,27 @@
       </button>
     </form>
   </div>
+
+  <script>
+    function closeErrorModal() {
+      document.getElementById('errorModal').style.display = 'none';
+    }
+
+    // Cerrar modal al hacer clic fuera de él
+    document.addEventListener('click', function(event) {
+      const modal = document.getElementById('errorModal');
+      if (modal && event.target === modal) {
+        closeErrorModal();
+      }
+    });
+
+    // Cerrar modal con la tecla Escape
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeErrorModal();
+      }
+    });
+  </script>
 
 </body>
 </html>
