@@ -8,10 +8,13 @@ require_once __DIR__ . '/../models/Contacto.php';
 $contacto = new Contacto();
 $posts = $contacto->getAllPosts();
 
-// Enriquecer los posts con username y fecha formateada
+// Enriquecer los posts con username, fecha formateada y likes
 foreach ($posts as &$post) {
     $post['username'] = $contacto->getUsernameById($post['userId']);
     $post['fecha_formateada'] = date('d/m/Y H:i', strtotime($post['created_at']));
+    // Obtener cantidad de likes y si el usuario actual ya dio like
+    $post['likes'] = $contacto->getLikesCount($post['id']);
+    $post['liked_by_user'] = (isset($_SESSION['user_id']) && $contacto->userLikedPost($_SESSION['user_id'], $post['id'])) ? true : false;
 }
 unset($post);
 ?>
@@ -179,16 +182,27 @@ unset($post);
             <!-- Acciones del post -->
             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
               <div class="flex items-center gap-4">
-                <button class="flex items-center gap-1 text-gray-500 hover:text-red-500 transition-colors duration-200">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button 
+                  class="flex items-center gap-1 text-gray-500 hover:text-red-500 transition-colors duration-200 like-btn <?= ($post['liked_by_user'] ? 'liked' : '') ?>"
+                  data-post-id="<?= $post['id'] ?>"
+                  <?php if (!isset($_SESSION['user_id'])): ?>disabled title="Inicia sesión para dar like"<?php endif; ?>
+                >
+                  <svg class="w-5 h-5" fill="<?= ($post['liked_by_user'] ? 'red' : 'none') ?>" stroke="currentColor" viewBox="0 0 24 24">
                     <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
+                  <span class="text-sm like-count"><?= $post['likes'] ?></span>
                   <span class="text-sm">Me gusta</span>
                 </button>
-                <button class="flex items-center gap-1 text-gray-500 hover:text-blue-500 transition-colors duration-200">
+                <button 
+                  class="flex items-center gap-1 text-gray-500 hover:text-blue-500 transition-colors duration-200 comment-btn"
+                  data-post-id="<?= $post['id'] ?>"
+                  data-post-title="<?= htmlspecialchars($post['title']) ?>"
+                  data-comment-count="0"
+                >
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
+                  <span class="text-sm comment-count" id="comment-count-<?= $post['id'] ?>">0</span>
                   <span class="text-sm">Comentar</span>
                 </button>
               </div>
@@ -227,3 +241,194 @@ unset($post);
       <?php endif; ?>
     </div>
   </div>
+
+<!-- MODAL DE COMENTARIOS -->
+<div id="commentsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-2 relative">
+    <button id="closeCommentsModal" class="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl">&times;</button>
+    <div class="p-6">
+      <h3 id="modalPostTitle" class="text-lg font-bold mb-2"></h3>
+      <div id="commentsList" class="space-y-3 max-h-60 overflow-y-auto mb-4"></div>
+      <?php if (isset($_SESSION['user_id'])): ?>
+      <form id="modalCommentForm" class="flex gap-2">
+        <input type="text" name="body" id="modalCommentInput" placeholder="Escribe un comentario..." class="flex-1 border border-gray-300 rounded px-2 py-1 text-sm" required maxlength="250" />
+        <button type="submit" class="bg-orange-500 text-white px-3 py-1 rounded text-xs hover:bg-orange-600">Comentar</button>
+      </form>
+      <?php else: ?>
+      <div class="text-xs text-gray-500">Inicia sesión para comentar.</div>
+      <?php endif; ?>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.like-btn').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    <?php if (!isset($_SESSION['user_id'])): ?>
+      return;
+    <?php endif; ?>
+    var postId = this.getAttribute('data-post-id');
+    var button = this;
+    fetch('/BOUTIQUEORANGE/controllers/LikeController.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: 'post_id=' + encodeURIComponent(postId)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        button.querySelector('.like-count').textContent = data.likes;
+        if (data.liked) {
+          button.classList.add('liked');
+          button.querySelector('svg').setAttribute('fill', 'red');
+        } else {
+          button.classList.remove('liked');
+          button.querySelector('svg').setAttribute('fill', 'none');
+        }
+      }
+    });
+  });
+});
+
+// MODAL DE COMENTARIOS
+let currentPostId = null;
+let modal = document.getElementById('commentsModal');
+let commentsList = document.getElementById('commentsList');
+let modalPostTitle = document.getElementById('modalPostTitle');
+let modalCommentForm = document.getElementById('modalCommentForm');
+let modalCommentInput = document.getElementById('modalCommentInput');
+let closeBtn = document.getElementById('closeCommentsModal');
+
+// Actualizar contador de comentarios para todos los posts al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.comment-btn').forEach(function(btn) {
+    let postId = btn.getAttribute('data-post-id');
+    fetch('/BOUTIQUEORANGE/controllers/CommentController.php?post_id=' + encodeURIComponent(postId))
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          let countSpan = document.getElementById('comment-count-' + postId);
+          if (countSpan) countSpan.textContent = data.count;
+          btn.setAttribute('data-comment-count', data.count);
+        }
+      });
+  });
+});
+
+// Abrir modal y cargar comentarios
+document.querySelectorAll('.comment-btn').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    currentPostId = btn.getAttribute('data-post-id');
+    modalPostTitle.textContent = btn.getAttribute('data-post-title') || 'Comentarios';
+    commentsList.innerHTML = '<div class="text-gray-400 text-center py-4">Cargando...</div>';
+    modal.classList.remove('hidden');
+    loadComments(currentPostId);
+  });
+});
+
+// Cerrar modal
+closeBtn.addEventListener('click', function() {
+  modal.classList.add('hidden');
+  commentsList.innerHTML = '';
+  if (modalCommentInput) modalCommentInput.value = '';
+});
+modal.addEventListener('click', function(e) {
+  if (e.target === modal) {
+    modal.classList.add('hidden');
+    commentsList.innerHTML = '';
+    if (modalCommentInput) modalCommentInput.value = '';
+  }
+});
+
+// Cargar comentarios por AJAX
+function loadComments(postId) {
+  fetch('/BOUTIQUEORANGE/controllers/CommentController.php?post_id=' + encodeURIComponent(postId))
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        renderComments(data.comments);
+        // Actualiza el contador en el botón
+        let countSpan = document.getElementById('comment-count-' + postId);
+        if (countSpan) countSpan.textContent = data.count;
+        // También actualiza el atributo para otros usos si lo necesitas
+        let btn = document.querySelector('.comment-btn[data-post-id="' + postId + '"]');
+        if (btn) btn.setAttribute('data-comment-count', data.count);
+      } else {
+        commentsList.innerHTML = '<div class="text-red-500 text-center py-4">Error al cargar comentarios</div>';
+      }
+    });
+}
+
+function renderComments(comments) {
+  if (!comments.length) {
+    commentsList.innerHTML = '<div class="text-gray-400 text-center py-4">Sin comentarios aún.</div>';
+    return;
+  }
+  commentsList.innerHTML = '';
+  comments.forEach(function(comment) {
+    let div = document.createElement('div');
+    div.className = 'flex items-start gap-2 group';
+    div.innerHTML = `
+      <div class="w-7 h-7 bg-orange-200 rounded-full flex items-center justify-center text-xs font-bold text-orange-700">
+        ${comment.username.charAt(0).toUpperCase()}
+      </div>
+      <div class="flex-1">
+        <span class="font-semibold text-gray-800 text-xs">${escapeHtml(comment.username)}</span>
+        <span class="text-xs text-gray-500">${comment.fecha_formateada}</span>
+        <div class="text-sm text-gray-700">${escapeHtml(comment.body).replace(/\n/g, '<br>')}</div>
+      </div>
+      ${comment.can_delete ? `<button class="ml-2 text-xs text-red-500 hover:underline delete-comment-btn" data-comment-id="${comment.id}">Eliminar</button>` : ''}
+    `;
+    commentsList.appendChild(div);
+  });
+  // Bind eliminar
+  commentsList.querySelectorAll('.delete-comment-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (!confirm('¿Eliminar este comentario?')) return;
+      let commentId = btn.getAttribute('data-comment-id');
+      fetch('/BOUTIQUEORANGE/controllers/CommentController.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'action=delete&comment_id=' + encodeURIComponent(commentId)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) loadComments(currentPostId);
+      });
+    });
+  });
+}
+
+// Enviar comentario desde modal
+if (modalCommentForm) {
+  modalCommentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let body = modalCommentInput.value.trim();
+    if (!body) return;
+    fetch('/BOUTIQUEORANGE/controllers/CommentController.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: 'post_id=' + encodeURIComponent(currentPostId) + '&body=' + encodeURIComponent(body)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        modalCommentInput.value = '';
+        loadComments(currentPostId);
+      }
+    });
+  });
+}
+
+// Utilidad para escapar HTML
+function escapeHtml(text) {
+  return text.replace(/[&<>"']/g, function(m) {
+    return ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[m];
+  });
+}
+</script>

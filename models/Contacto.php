@@ -187,5 +187,57 @@ class Contacto extends Conexion {
         $this->sentencia = "INSERT INTO user (name, username, email, passwd, tipo) VALUES ('Prueba', 'prueba', 'prueba@test.com', '$hash', 2)";
         return $this->ejecutar_sentencia();
     }
+
+    public function getLikesCount($postId) {
+        $this->sentencia = "SELECT COUNT(*) as total FROM interactions WHERE postId = '$postId' AND tipo = 1";
+        $resultado = $this->obtener_sentencia();
+        $row = $resultado ? $resultado->fetch_assoc() : ['total' => 0];
+        return (int)$row['total'];
+    }
+
+    public function userLikedPost($userId, $postId) {
+        $this->sentencia = "SELECT 1 FROM interactions WHERE postId = '$postId' AND userId = '$userId' AND tipo = 1 LIMIT 1";
+        $resultado = $this->obtener_sentencia();
+        return ($resultado && $resultado->num_rows > 0);
+    }
+
+    public function addLike($userId, $postId) {
+        $this->sentencia = "INSERT IGNORE INTO interactions (userId, postId, tipo) VALUES ('$userId', '$postId', 1)";
+        return $this->ejecutar_sentencia();
+    }
+
+    public function removeLike($userId, $postId) {
+        $this->sentencia = "DELETE FROM interactions WHERE userId = '$userId' AND postId = '$postId' AND tipo = 1";
+        return $this->ejecutar_sentencia();
+    }
+
+    // --- COMENTARIOS ---
+    public function insertComment($postId, $userId, $body, $active = 1) {
+        $this->sentencia = "INSERT INTO comments (postId, userId, body, active, created_at) VALUES ('$postId', '$userId', '$body', '$active', NOW())";
+        return $this->ejecutar_sentencia();
+    }
+
+    public function getCommentsByPost($postId) {
+        $this->sentencia = "SELECT c.*, u.username FROM comments c JOIN user u ON c.userId = u.id WHERE c.postId = '$postId' AND c.active = 1 ORDER BY c.created_at ASC";
+        $resultado = $this->obtener_sentencia();
+        $comments = [];
+        if ($resultado) {
+            while ($row = $resultado->fetch_assoc()) {
+                $comments[] = $row;
+            }
+            $resultado->free();
+        }
+        return $comments;
+    }
+
+    public function deleteComment($commentId, $userId, $isAdmin = false) {
+        // Solo el autor o admin puede eliminar (soft delete)
+        if ($isAdmin) {
+            $this->sentencia = "UPDATE comments SET active = 0 WHERE id = '$commentId'";
+        } else {
+            $this->sentencia = "UPDATE comments SET active = 0 WHERE id = '$commentId' AND userId = '$userId'";
+        }
+        return $this->ejecutar_sentencia();
+    }
 }
 ?>
