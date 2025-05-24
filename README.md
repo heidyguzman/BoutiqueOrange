@@ -1,6 +1,6 @@
 # 🌐 Proyecto Web en PHP con XAMPP
 
-Bienvenido a este proyecto web desarrollado con **PHP**. Está diseñado para ejecutarse en un entorno local utilizando **XAMPP** e incluye todo lo necesario para comenzar a desarrollar o probar una página web dinámica.
+Bienvenido a este proyecto web desarrollado con un framework desarrollado con  **PHP**. Está diseñado para ejecutarse en un entorno local utilizando **XAMPP** e incluye todo lo necesario para comenzar a desarrollar o probar una página web dinámica.
 
 ---
 
@@ -72,6 +72,8 @@ proyecto-php/
 │   └── conexion.php
 └── README.md
 👨‍💻 Autor
-Nombre: [Tu Nombre]
+Nombre: Heidy Samantha Guzmán Márquez
+        Rafael Alexandro Vuelvas Pérez
 
-GitHub: @tuusuario
+GitHub: heidyguzman 
+        ELNARMOTON79
