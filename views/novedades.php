@@ -187,7 +187,7 @@ unset($post);
 
             <!-- Imagen del post -->
             <?php if (!empty($post['imagen'])): ?>
-              <img src="<?= htmlspecialchars($post['imagen']) ?>" class="w-full h-48 object-cover rounded-lg mb-4" alt="Imagen del post">
+              <img src="<?= htmlspecialchars($post['imagen']) ?>" class="w-full h-48 object-cover rounded-lg mb-4 cursor-pointer post-image-modal-trigger" alt="Imagen del post">
             <?php endif; ?>
 
             <!-- Acciones del post -->
@@ -286,3 +286,49 @@ unset($post);
 <script src="/BOUTIQUEORANGE/public/js/likes.js"></script>
 <script src="/BOUTIQUEORANGE/public/js/comments.js"></script>
 <script src="/BOUTIQUEORANGE/public/js/fullpost.js"></script>
+
+<script>
+// Mostrar modal con post completo al hacer clic en la imagen
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.post-image-modal-trigger').forEach(function(img) {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const postCard = img.closest('.post-card');
+      const post = JSON.parse(postCard.getAttribute('data-post'));
+      const modal = document.getElementById('fullPostModal');
+      const content = document.getElementById('fullPostContent');
+      content.innerHTML = `
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+            <span class="text-white font-bold text-lg">${post.username.charAt(0).toUpperCase()}</span>
+          </div>
+          <div>
+            <div class="font-semibold text-gray-800 text-base">${post.username}</div>
+            <div class="text-xs text-gray-500">${post.fecha_formateada}</div>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold mb-2">${post.title ? post.title : ''}</h3>
+        <div class="mb-4 text-gray-700">${post.body.replace(/\n/g, '<br>')}</div>
+        ${post.imagen ? `<img src="${post.imagen}" class="w-full max-h-[400px] object-cover rounded-lg mb-4" alt="Imagen del post">` : ''}
+        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${post.active == 1 ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}">
+          ${post.active == 1 ? 'Activo' : 'Inactivo'}
+        </span>
+      `;
+      modal.classList.remove('hidden');
+    });
+  });
+
+  // Cerrar modal
+  document.getElementById('closeFullPostModal').onclick = function() {
+    document.getElementById('fullPostModal').classList.add('hidden');
+  };
+  document.getElementById('fullPostModal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.add('hidden');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('fullPostModal').classList.add('hidden');
+    }
+  });
+});
+</script>
